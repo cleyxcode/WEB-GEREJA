@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable;
 
@@ -29,11 +31,18 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
         ];
     }
 
-    // Relasi
+    // ✅ Hanya admin yang bisa akses Filament
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    // ===== RELATIONSHIPS =====
+
     public function pendaftaran(): HasMany
     {
         return $this->hasMany(Pendaftaran::class);

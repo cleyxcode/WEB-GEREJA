@@ -17,9 +17,12 @@ class AuthController extends Controller
     public function showLogin()
     {
         if (Auth::check()) {
-            return redirect()->route('home');
+            // ✅ FIX: Redirect berdasarkan role
+            return Auth::user()->role === 'admin'
+                ? redirect('/admin')
+                : redirect()->route('home');
         }
-        
+
         return view('frontend.auth.login');
     }
 
@@ -29,43 +32,44 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required|min:8',
         ], [
-            'email.required' => 'Email wajib diisi',
-            'email.email' => 'Format email tidak valid',
+            'email.required'    => 'Email wajib diisi',
+            'email.email'       => 'Format email tidak valid',
             'password.required' => 'Password wajib diisi',
-            'password.min' => 'Password minimal 8 karakter',
+            'password.min'      => 'Password minimal 8 karakter',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => $validator->errors()->first(),
-                'errors' => $validator->errors()
+                'errors'  => $validator->errors()
             ], 422);
         }
 
         $credentials = $request->only('email', 'password');
-        $remember = $request->boolean('remember');
+        $remember    = $request->boolean('remember');
 
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
 
             $user = Auth::user();
 
-            // Redirect berdasarkan role
+            // ✅ Admin → Filament Panel
             if ($user->role === 'admin') {
                 return response()->json([
-                    'success' => true,
-                    'message' => 'Login berhasil',
-                    'redirect' => route('filament.admin.pages.dashboard')
+                    'success'  => true,
+                    'message'  => 'Login berhasil! Mengalihkan ke panel admin...',
+                    'redirect' => '/admin'
                 ]);
             }
 
+            // ✅ Jemaat → Frontend
             return response()->json([
-                'success' => true,
-                'message' => 'Login berhasil',
+                'success'  => true,
+                'message'  => 'Login berhasil! Selamat datang, ' . $user->name,
                 'redirect' => route('home')
             ]);
         }
@@ -82,30 +86,33 @@ class AuthController extends Controller
     public function showRegister()
     {
         if (Auth::check()) {
-            return redirect()->route('home');
+            // ✅ FIX: Redirect berdasarkan role
+            return Auth::user()->role === 'admin'
+                ? redirect('/admin')
+                : redirect()->route('home');
         }
-        
+
         return view('frontend.auth.register');
     }
 
     /**
-     * Proses registrasi
+     * Proses registrasi (hanya untuk jemaat)
      */
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
-            'no_hp' => 'nullable|string|max:20',
-            'alamat' => 'nullable|string',
+            'no_hp'    => 'nullable|string|max:20',
+            'alamat'   => 'nullable|string',
         ], [
-            'name.required' => 'Nama lengkap wajib diisi',
-            'email.required' => 'Email wajib diisi',
-            'email.email' => 'Format email tidak valid',
-            'email.unique' => 'Email sudah terdaftar',
-            'password.required' => 'Password wajib diisi',
-            'password.min' => 'Password minimal 8 karakter',
+            'name.required'      => 'Nama lengkap wajib diisi',
+            'email.required'     => 'Email wajib diisi',
+            'email.email'        => 'Format email tidak valid',
+            'email.unique'       => 'Email sudah terdaftar',
+            'password.required'  => 'Password wajib diisi',
+            'password.min'       => 'Password minimal 8 karakter',
             'password.confirmed' => 'Konfirmasi password tidak cocok',
         ]);
 
@@ -113,27 +120,26 @@ class AuthController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $validator->errors()->first(),
-                'errors' => $validator->errors()
+                'errors'  => $validator->errors()
             ], 422);
         }
 
         try {
             $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
+                'name'     => $request->name,
+                'email'    => $request->email,
                 'password' => Hash::make($request->password),
-                'role' => 'jemaat',
-                'no_hp' => $request->no_hp,
-                'alamat' => $request->alamat,
+                'role'     => 'jemaat', // ✅ Register selalu jemaat
+                'no_hp'    => $request->no_hp,
+                'alamat'   => $request->alamat,
             ]);
 
-            // Auto login setelah registrasi
             Auth::login($user);
             $request->session()->regenerate();
 
             return response()->json([
-                'success' => true,
-                'message' => 'Registrasi berhasil',
+                'success'  => true,
+                'message'  => 'Registrasi berhasil! Selamat datang, ' . $user->name,
                 'redirect' => route('home')
             ]);
         } catch (\Exception $e) {
@@ -154,8 +160,8 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return response()->json([
-            'success' => true,
-            'message' => 'Logout berhasil',
+            'success'  => true,
+            'message'  => 'Logout berhasil',
             'redirect' => route('login')
         ]);
     }
