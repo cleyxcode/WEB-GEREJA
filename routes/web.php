@@ -9,6 +9,8 @@ use App\Http\Controllers\Frontend\KeuanganController;
 use App\Http\Controllers\Frontend\PendaftaranController;
 use App\Http\Controllers\Frontend\SaranController;
 use App\Http\Controllers\Frontend\ProfileController;
+use App\Http\Controllers\Frontend\BeritaController;
+
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -48,9 +50,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
     Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
     Route::delete('/pendaftaran/{id}', [PendaftaranController::class, 'destroy'])->name('pendaftaran.destroy');
+
     Route::get('/saran', [SaranController::class, 'index'])->name('saran.create');
     Route::post('/saran', [SaranController::class, 'store'])->name('saran.store');
+
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+
+     Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+    Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
 });

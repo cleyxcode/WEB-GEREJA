@@ -220,7 +220,6 @@ document.getElementById('profileForm').addEventListener('submit', async function
     // Clear previous errors
     document.querySelectorAll('[id$="-error"]').forEach(el => el.classList.add('hidden'));
     
-    // Set loading state
     submitBtn.disabled = true;
     submitBtn.textContent = 'Menyimpan...';
     
@@ -243,7 +242,7 @@ document.getElementById('profileForm').addEventListener('submit', async function
                 window.location.reload();
             }, 1000);
         } else {
-            // Show validation errors
+            
             if (result.errors) {
                 Object.keys(result.errors).forEach(key => {
                     const errorEl = document.getElementById(`${key}-error`);
