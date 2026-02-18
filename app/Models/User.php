@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Notifications\ResetPasswordNotification;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -52,4 +53,9 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Saran::class);
     }
+    
+    public function sendPasswordResetNotification($token): void
+{
+    $this->notify(new ResetPasswordNotification($token));
+}
 }
