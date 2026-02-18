@@ -60,17 +60,17 @@
                     <li class="flex items-start gap-3">
                         <span class="material-symbols-outlined text-gray-400 text-[20px] mt-0.5">location_on</span>
                         <span class="text-sm text-gray-600">
-                            Jl. Damai Sejahtera No. 10<br/>Jakarta Selatan, 12345
+                             JL Peleman, Namaelo, Kec. Kota Masohi, Kabupaten Maluku Tengah, Maluku 97511
                         </span>
                     </li>
-                    <li class="flex items-center gap-3">
+                    {{-- <li class="flex items-center gap-3">
                         <span class="material-symbols-outlined text-gray-400 text-[20px]">call</span>
                         <span class="text-sm text-gray-600">(021) 555-0123</span>
                     </li>
                     <li class="flex items-center gap-3">
                         <span class="material-symbols-outlined text-gray-400 text-[20px]">mail</span>
                         <span class="text-sm text-gray-600">info@gerejabethesda.org</span>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>

@@ -34,11 +34,11 @@
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    {{-- <!-- Stats Section -->
+   <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Stat Card 1 -->
         <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-1 group">
-            <div class="flex items-center justify-between mb-2">
+            <div clas s="flex items-center justify-between mb-2">
                 <span class="text-sm font-medium text-gray-500">Total Jemaat</span>
                 <div class="p-2 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-100 transition-colors">
                     <span class="material-symbols-outlined">groups</span>
@@ -89,7 +89,7 @@
             <span class="text-3xl font-bold text-[#111418]">{{ $stats['saran_belum_dibaca'] }}</span>
             <span class="text-xs text-gray-500 font-medium">Belum dibaca</span>
         </div>
-    </section>
+    </section> --}}
 
     <!-- Upcoming Schedule -->
     <section class="space-y-6">
