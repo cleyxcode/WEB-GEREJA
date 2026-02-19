@@ -13,7 +13,7 @@
                 <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-sm overflow-hidden">
                     <img src="{{ asset('images/logoupdate.png') }}" alt="Logo Gereja" class="w-full h-full object-contain">
                 </div>
-                <h1 class="text-2xl font-bold text-slate-900 mb-2 tracking-tight">Gereja Bethesda</h1>
+                <h1 class="text-2xl font-bold text-slate-900 mb-2 tracking-tight">Jemaat Masohi</h1>
                 <p class="text-slate-500 text-sm">Masuk untuk mengakses sistem informasi gereja</p>
             </div>
 

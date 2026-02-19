@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="flex flex-col leading-none">
-        <span class="text-[15px] font-black tracking-tight text-gray-900">Gereja Bethesda</span>
+        <span class="text-[15px] font-black tracking-tight text-gray-900">Jemaat Masohi</span>
         <span class="text-[10px] text-gray-400 font-medium tracking-wider uppercase">Sistem Informasi</span>
     </div>
 </a>

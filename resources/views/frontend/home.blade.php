@@ -16,7 +16,7 @@
                  Melayani dengan Kasih dan Sukacita
             </div>
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight">
-                Selamat Datang di<br/><span class="text-blue-300">Website Gereja Bethesda Jemaat GPM Masohi</span>
+                Selamat Datang di<br/><span class="text-blue-300">Website Jemaat GPM Masohi</span>
             </h2>
             <p class="text-lg text-gray-200 font-medium max-w-lg leading-relaxed">
                 Bergabunglah bersama kami dalam persekutuan yang hangat. Temukan jadwal ibadah, berita terbaru, dan informasi pelayanan gereja GPM Masohi
