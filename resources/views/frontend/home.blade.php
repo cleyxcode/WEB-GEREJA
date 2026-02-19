@@ -6,9 +6,9 @@
 <main class="flex-grow w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
     <!-- Hero Section -->
     <section class="relative w-full rounded-2xl overflow-hidden shadow-xl min-h-[480px] flex items-center group">
-        <div class="absolute inset-0 z-0 transition-transform duration-700 group-hover:scale-105" 
-             style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCb0_dEZAwXePMbkEmrik_SFOaGkmeqO7S8A0BBSOv86uMhsA4CeGFt0XJqXOecIOgGzyS2ZEfSNoUsK0lZzizHMO0ZvEEQVndgH1paGaejil9WbCzc4KrRKEdy41cvJaIjiFv7I0wTqi7wU7EgwCNoB4zt-5kYENr_IJIU774p3cOchkQI7xpD6cW7Tv8otj3f4cWzEdFv9klOFw-Oum5Sp2zpmtKKggoAvh2hNmULjmAJqs_v3OEZZtCm3iPKKQ8H5H4nPHOt8ZUX'); background-size: cover; background-position: center;">
-        </div>
+       <div class="absolute inset-0 z-0 transition-transform duration-700 group-hover:scale-105" 
+     style="background-image: url('{{ asset('images/gereja.jpeg') }}'); background-size: cover; background-position: center;">
+</div>
         <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-10"></div>
         <div class="relative z-20 max-w-2xl px-8 md:px-12 py-12 flex flex-col gap-6">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-semibold w-fit">
