@@ -19,7 +19,7 @@
                 Selamat Datang di<br/><span class="text-blue-300">Gereja Bethesda</span>
             </h2>
             <p class="text-lg text-gray-200 font-medium max-w-lg leading-relaxed">
-                Bergabunglah bersama kami dalam persekutuan yang hangat. Temukan jadwal ibadah, berita terbaru, dan informasi kegiatan gereja dalam satu platform.
+                Bergabunglah bersama kami dalam persekutuan yang hangat. Temukan jadwal ibadah, berita terbaru, dan informasi pelayanan gereja GPM Masohi
             </p>
             <div class="flex flex-wrap gap-4 mt-2">
                 <a href="{{ route('jadwal.index') }}" class="px-6 py-3 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
