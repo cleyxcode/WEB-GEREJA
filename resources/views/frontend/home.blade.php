@@ -13,10 +13,10 @@
         <div class="relative z-20 max-w-2xl px-8 md:px-12 py-12 flex flex-col gap-6">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-semibold w-fit">
                 <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
-                Melayani dengan Kasih dan Integritas
+                 Melayani dengan Kasih dan Sukacita
             </div>
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight">
-                Selamat Datang di<br/><span class="text-blue-300">Gereja Bethesda</span>
+                Selamat Datang di<br/><span class="text-blue-300">Website Gereja Bethesda Jemaat GPM Masohi</span>
             </h2>
             <p class="text-lg text-gray-200 font-medium max-w-lg leading-relaxed">
                 Bergabunglah bersama kami dalam persekutuan yang hangat. Temukan jadwal ibadah, berita terbaru, dan informasi pelayanan gereja GPM Masohi
