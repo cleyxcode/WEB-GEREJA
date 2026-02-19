@@ -10,6 +10,7 @@ use App\Http\Controllers\Frontend\PendaftaranController;
 use App\Http\Controllers\Frontend\SaranController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\BeritaController;
+use App\Http\Controllers\Frontend\GaleriController;
 
 // ✅ Import controller reset password
 use App\Http\Controllers\Frontend\PasswordResetController;
@@ -75,5 +76,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+
+    // Galeri
+Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 
 });

@@ -18,23 +18,90 @@ class PendaftaranSeeder extends Seeder
         $agus   = User::where('email', 'agus@email.com')->first();
 
         $data = [
-            // Budi: baptis disetujui, nikah pending
-            ['user_id' => $budi->id,   'jenis' => 'baptis', 'tanggal_daftar' => Carbon::now()->subMonths(3)->format('Y-m-d'), 'status' => 'disetujui'],
-            ['user_id' => $budi->id,   'jenis' => 'nikah',  'tanggal_daftar' => Carbon::now()->addMonths(2)->format('Y-m-d'), 'status' => 'pending'],
+            // Budi: baptis disetujui
+            [
+                'user_id'        => $budi->id,
+                'nama'           => 'Budi Santoso',
+                'jenis'          => 'baptis',
+                'tanggal_daftar' => Carbon::now()->subMonths(3)->format('Y-m-d'),
+                'status'         => 'disetujui',
+                'foto'           => null,
+                'catatan'        => 'Baptis kudus untuk anggota baru jemaat.',
+            ],
+            // Budi: nikah pending
+            [
+                'user_id'        => $budi->id,
+                'nama'           => 'Budi Santoso',
+                'jenis'          => 'nikah',
+                'tanggal_daftar' => Carbon::now()->addMonths(2)->format('Y-m-d'),
+                'status'         => 'pending',
+                'foto'           => null,
+                'catatan'        => 'Pemberkatan nikah dengan calon istri Maria.',
+            ],
 
-            // Sari: sidi disetujui, nikah disetujui
-            ['user_id' => $sari->id,   'jenis' => 'sidi',   'tanggal_daftar' => Carbon::now()->subMonths(2)->format('Y-m-d'), 'status' => 'disetujui'],
-            ['user_id' => $sari->id,   'jenis' => 'nikah',  'tanggal_daftar' => Carbon::now()->addMonth()->format('Y-m-d'),  'status' => 'disetujui'],
+            // Sari: sidi disetujui
+            [
+                'user_id'        => $sari->id,
+                'nama'           => 'Sari Dewi',
+                'jenis'          => 'sidi',
+                'tanggal_daftar' => Carbon::now()->subMonths(2)->format('Y-m-d'),
+                'status'         => 'disetujui',
+                'foto'           => null,
+                'catatan'        => 'Peneguhan sidi setelah mengikuti kelas katekisasi.',
+            ],
+            // Sari: nikah disetujui
+            [
+                'user_id'        => $sari->id,
+                'nama'           => 'Sari Dewi',
+                'jenis'          => 'nikah',
+                'tanggal_daftar' => Carbon::now()->addMonth()->format('Y-m-d'),
+                'status'         => 'disetujui',
+                'foto'           => null,
+                'catatan'        => 'Pemberkatan nikah di gedung gereja utama.',
+            ],
 
-            // Hendra: baptis ditolak, ulang pending
-            ['user_id' => $hendra->id, 'jenis' => 'baptis', 'tanggal_daftar' => Carbon::now()->subMonths(4)->format('Y-m-d'), 'status' => 'ditolak'],
-            ['user_id' => $hendra->id, 'jenis' => 'baptis', 'tanggal_daftar' => Carbon::now()->addMonths(1)->format('Y-m-d'), 'status' => 'pending'],
+            // Hendra: baptis ditolak
+            [
+                'user_id'        => $hendra->id,
+                'nama'           => 'Hendra Wijaya',
+                'jenis'          => 'baptis',
+                'tanggal_daftar' => Carbon::now()->subMonths(4)->format('Y-m-d'),
+                'status'         => 'ditolak',
+                'foto'           => null,
+                'catatan'        => 'Dokumen belum lengkap, dimohon melengkapi berkas.',
+            ],
+            // Hendra: baptis ulang pending
+            [
+                'user_id'        => $hendra->id,
+                'nama'           => 'Hendra Wijaya',
+                'jenis'          => 'baptis',
+                'tanggal_daftar' => Carbon::now()->addMonths(1)->format('Y-m-d'),
+                'status'         => 'pending',
+                'foto'           => null,
+                'catatan'        => 'Pengajuan ulang setelah melengkapi dokumen.',
+            ],
 
             // Dewi: sidi pending
-            ['user_id' => $dewi->id,   'jenis' => 'sidi',   'tanggal_daftar' => Carbon::now()->addMonths(2)->format('Y-m-d'), 'status' => 'pending'],
+            [
+                'user_id'        => $dewi->id,
+                'nama'           => 'Dewi Kusuma',
+                'jenis'          => 'sidi',
+                'tanggal_daftar' => Carbon::now()->addMonths(2)->format('Y-m-d'),
+                'status'         => 'pending',
+                'foto'           => null,
+                'catatan'        => null,
+            ],
 
             // Agus: baptis disetujui
-            ['user_id' => $agus->id,   'jenis' => 'baptis', 'tanggal_daftar' => Carbon::now()->subMonth()->format('Y-m-d'),  'status' => 'disetujui'],
+            [
+                'user_id'        => $agus->id,
+                'nama'           => 'Agus Pratama',
+                'jenis'          => 'baptis',
+                'tanggal_daftar' => Carbon::now()->subMonth()->format('Y-m-d'),
+                'status'         => 'disetujui',
+                'foto'           => null,
+                'catatan'        => 'Baptis kudus untuk anak pertama.',
+            ],
         ];
 
         foreach ($data as $item) {

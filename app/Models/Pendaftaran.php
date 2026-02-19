@@ -11,8 +11,11 @@ class Pendaftaran extends Model
 
     protected $fillable = [
         'user_id',
+        'nama',
         'jenis',
         'tanggal_daftar',
+        'foto',
+        'catatan',
         'status',
     ];
 

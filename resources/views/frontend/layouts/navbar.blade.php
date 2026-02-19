@@ -22,16 +22,17 @@
 
             {{-- ===== DESKTOP MENU ===== --}}
             <nav class="hidden lg:flex items-center gap-1">
-                @php
-                    $navItems = [
-                        ['route' => 'home',             'label' => 'Beranda',          'icon' => 'home',            'match' => 'home'],
-                        ['route' => 'jadwal.index',     'label' => 'Jadwal',           'icon' => 'calendar_month',  'match' => 'jadwal.*'],
-                        ['route' => 'berita.index',     'label' => 'Berita',           'icon' => 'newspaper',       'match' => 'berita.*'],
-                        ['route' => 'pendaftaran.index','label' => 'Pendaftaran',      'icon' => 'app_registration', 'match' => 'pendaftaran.*'],
-                        ['route' => 'keuangan.index',   'label' => 'Keuangan',         'icon' => 'account_balance', 'match' => 'keuangan.*'],
-                        ['route' => 'saran.create',     'label' => 'Kotak Saran',      'icon' => 'mail',            'match' => 'saran.*'],
-                    ];
-                @endphp
+            @php
+    $navItems = [
+        ['route' => 'home',             'label' => 'Beranda',       'icon' => 'home',             'match' => 'home'],
+        ['route' => 'jadwal.index',     'label' => 'Jadwal',        'icon' => 'calendar_month',   'match' => 'jadwal.*'],
+        ['route' => 'berita.index',     'label' => 'Berita',        'icon' => 'newspaper',        'match' => 'berita.*'],
+        ['route' => 'galeri.index',     'label' => 'Galeri',        'icon' => 'photo_library',    'match' => 'galeri.*'],
+        ['route' => 'pendaftaran.index','label' => 'Pendaftaran',   'icon' => 'app_registration', 'match' => 'pendaftaran.*'],
+        ['route' => 'keuangan.index',   'label' => 'Keuangan',      'icon' => 'account_balance',  'match' => 'keuangan.*'],
+        ['route' => 'saran.create',     'label' => 'Kotak Saran',   'icon' => 'mail',             'match' => 'saran.*'],
+    ];
+@endphp
 
                 @foreach($navItems as $item)
                 @php $active = request()->routeIs($item['match']); @endphp
