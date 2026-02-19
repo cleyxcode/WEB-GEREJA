@@ -10,8 +10,8 @@
         <div class="bg-white rounded-xl shadow-card w-full overflow-hidden border border-slate-100 transition-all duration-300">
             <!-- Header Section with Logo -->
             <div class="pt-10 pb-6 px-8 text-center flex flex-col items-center">
-                <div class="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary shadow-sm">
-                    <span class="material-symbols-outlined text-[40px]">church</span>
+                <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-sm overflow-hidden">
+                    <img src="{{ asset('images/logoupdate.png') }}" alt="Logo Gereja" class="w-full h-full object-contain">
                 </div>
                 <h1 class="text-2xl font-bold text-slate-900 mb-2 tracking-tight">Gereja Bethesda</h1>
                 <p class="text-slate-500 text-sm">Masuk untuk mengakses sistem informasi gereja</p>
@@ -52,7 +52,6 @@
                 <div class="flex flex-col gap-1.5 group/password">
                     <div class="flex items-center justify-between">
                         <label class="text-sm font-medium text-slate-700" for="password">Password</label>
-                        {{-- ✅ Link lupa password diperbaiki --}}
                         <a class="text-xs font-medium text-primary hover:text-primary-hover hover:underline transition-colors" href="{{ route('password.request') }}">
                             Lupa password?
                         </a>
@@ -120,7 +119,7 @@
 
     <!-- Background Decoration -->
     <div class="fixed bottom-0 left-0 w-full h-1/2 pointer-events-none -z-10 opacity-30 bg-cover bg-bottom"
-        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCJTmBqVxFf-S7S0_xExbx38O1UVDKOpMfAxQliSDAiPxP86pW8N8k01-dPhV5zSudmm8S7No9s2CTuws4GyXD_kOmWX4lI9Btnm_yah-PZEp1_LtTKreU5SyzzRPedVvQ4NhjzLmb9l_WsfE_F0nKsZjuZfqpR5gXi-2CLUrDY3beZP73j2PRvVVG3SazrdySbGnpUcYk3YYqwr-GroCbZhGv3utpJt2xfJscfcIuLx_aq-DBo0nGBxBTSl-U5TLZGzeJwm5Li62UI');
+        style="background-image: url('{{ asset('images/gereja.jpeg') }}');
               mask-image: linear-gradient(to top, black, transparent);">
     </div>
 </div>
