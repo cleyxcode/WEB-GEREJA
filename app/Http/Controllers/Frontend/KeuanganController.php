@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\LaporanKeuangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\LaporanKeuanganExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KeuanganController extends Controller
 {
@@ -82,9 +84,13 @@ class KeuanganController extends Controller
         ));
     }
 
-    public function export()
-    {
-        // TODO: Implement Excel export
-        return back()->with('info', 'Fitur export sedang dalam pengembangan');
-    }
+   public function export(Request $request)
+{
+    $fileName = 'laporan-keuangan-' . now()->format('Y-m-d') . '.xlsx';
+
+    return Excel::download(
+        new LaporanKeuanganExport($request),
+        $fileName
+    );
+}
 }

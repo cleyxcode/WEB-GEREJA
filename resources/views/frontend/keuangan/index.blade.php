@@ -15,7 +15,7 @@
                 <span class="material-symbols-outlined text-[20px]">print</span>
                 <span>Cetak</span>
             </button>
-            <a href="{{ route('keuangan.export') }}" class="flex items-center justify-center gap-2 px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg text-sm font-medium transition-colors shadow-sm shadow-blue-200">
+            <a href="{{ route('keuangan.export', request()->query()) }}" class="flex items-center justify-center gap-2 px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg text-sm font-medium transition-colors shadow-sm shadow-blue-200">
                 <span class="material-symbols-outlined text-[20px]">download</span>
                 <span>Export Excel</span>
             </a>
