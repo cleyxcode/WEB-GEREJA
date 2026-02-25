@@ -29,6 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('images/logoupdate.png'))
             ->brandLogoHeight('3rem')
             ->login()
+            ->passwordReset()
             ->topNavigation()
             ->colors([
                 'primary' => Color::Amber,

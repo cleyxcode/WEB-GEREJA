@@ -9,15 +9,33 @@
         <div class="lg:col-span-4 flex flex-col gap-6">
             <!-- Profile Card -->
             <div class="bg-white rounded-xl shadow-sm border border-[#e5e7eb] p-6 flex flex-col items-center text-center">
-                <div class="relative group cursor-pointer">
-                    <!-- Avatar / Initials Placeholder -->
-                    <div class="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center text-primary text-4xl font-bold mb-4 overflow-hidden border-4 border-white shadow-md">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
-                    </div>
-                    <div class="absolute bottom-4 right-0 bg-white rounded-full p-2 shadow-md border border-[#e5e7eb] text-primary hover:text-primary/80 transition-colors">
+                <div class="relative group">
+                    <!-- Avatar / Photo -->
+                    @if(Auth::user()->avatar)
+                        <img 
+                            id="avatarPreview"
+                            src="{{ asset('storage/' . Auth::user()->avatar) }}" 
+                            alt="Avatar"
+                            class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-md mb-4"
+                        />
+                    @else
+                        <div id="avatarPreview" class="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center text-primary text-4xl font-bold mb-4 overflow-hidden border-4 border-white shadow-md">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
+                        </div>
+                    @endif
+                    
+                    <!-- Upload Button -->
+                    <label for="avatarInput" class="absolute bottom-4 right-0 bg-white rounded-full p-2 shadow-md border border-[#e5e7eb] text-primary hover:text-primary/80 transition-colors cursor-pointer">
                         <span class="material-symbols-outlined text-[20px]">photo_camera</span>
-                    </div>
+                    </label>
+                    <input 
+                        type="file" 
+                        id="avatarInput" 
+                        accept="image/jpeg,image/jpg,image/png" 
+                        class="hidden"
+                    />
                 </div>
+                
                 <h1 class="text-[#111418] text-2xl font-bold mb-1">{{ Auth::user()->name }}</h1>
                 <span class="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary ring-1 ring-inset ring-primary/20">
                     {{ ucfirst(Auth::user()->role) }}
@@ -209,6 +227,58 @@
 
 @push('scripts')
 <script>
+// ✅ UPLOAD AVATAR
+document.getElementById('avatarInput').addEventListener('change', async function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Validasi ukuran (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+        showToast('Ukuran foto maksimal 2MB', 'error');
+        return;
+    }
+
+    // Validasi tipe file
+    if (!['image/jpeg', 'image/jpg', 'image/png'].includes(file.type)) {
+        showToast('Format foto harus JPG atau PNG', 'error');
+        return;
+    }
+
+    // Preview gambar sebelum upload
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const preview = document.getElementById('avatarPreview');
+        preview.innerHTML = `<img src="${event.target.result}" alt="Avatar" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-md" />`;
+    };
+    reader.readAsDataURL(file);
+
+    // Upload ke server
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    try {
+        const response = await fetch('{{ route("profile.update-avatar") }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            showToast(result.message, 'success');
+            // Reload setelah 1 detik untuk update navbar
+            setTimeout(() => window.location.reload(), 1000);
+        } else {
+            showToast(result.message || 'Gagal mengupload foto', 'error');
+        }
+    } catch (error) {
+        showToast('Terjadi kesalahan saat mengupload foto', 'error');
+    }
+});
+
 // Update Profile
 document.getElementById('profileForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -217,7 +287,6 @@ document.getElementById('profileForm').addEventListener('submit', async function
     const formData = new FormData(this);
     const data = Object.fromEntries(formData);
     
-    // Clear previous errors
     document.querySelectorAll('[id$="-error"]').forEach(el => el.classList.add('hidden'));
     
     submitBtn.disabled = true;
@@ -238,11 +307,8 @@ document.getElementById('profileForm').addEventListener('submit', async function
         
         if (response.ok) {
             showToast(result.message, 'success');
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);
+            setTimeout(() => window.location.reload(), 1000);
         } else {
-            
             if (result.errors) {
                 Object.keys(result.errors).forEach(key => {
                     const errorEl = document.getElementById(`${key}-error`);
@@ -253,12 +319,11 @@ document.getElementById('profileForm').addEventListener('submit', async function
                 });
             }
             showToast(result.message || 'Gagal memperbarui profil', 'error');
-            
             submitBtn.disabled = false;
             submitBtn.textContent = 'Simpan Perubahan';
         }
     } catch (error) {
-        showToast('Terjadi kesalahan. Silakan coba lagi.', 'error');
+        showToast('Terjadi kesalahan', 'error');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Simpan Perubahan';
     }
@@ -272,10 +337,8 @@ document.getElementById('passwordForm').addEventListener('submit', async functio
     const formData = new FormData(this);
     const data = Object.fromEntries(formData);
     
-    // Clear previous errors
     document.querySelectorAll('[id$="-error"]').forEach(el => el.classList.add('hidden'));
     
-    // Set loading state
     submitBtn.disabled = true;
     submitBtn.textContent = 'Memperbarui...';
     
@@ -294,11 +357,10 @@ document.getElementById('passwordForm').addEventListener('submit', async functio
         
         if (response.ok) {
             showToast(result.message, 'success');
-            this.reset(); // Clear form
+            this.reset();
             submitBtn.disabled = false;
             submitBtn.textContent = 'Update Password';
         } else {
-            // Show validation errors
             if (result.errors) {
                 Object.keys(result.errors).forEach(key => {
                     const errorEl = document.getElementById(`${key}-error`);
@@ -309,12 +371,11 @@ document.getElementById('passwordForm').addEventListener('submit', async functio
                 });
             }
             showToast(result.message || 'Gagal memperbarui password', 'error');
-            
             submitBtn.disabled = false;
             submitBtn.textContent = 'Update Password';
         }
     } catch (error) {
-        showToast('Terjadi kesalahan. Silakan coba lagi.', 'error');
+        showToast('Terjadi kesalahan', 'error');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Update Password';
     }

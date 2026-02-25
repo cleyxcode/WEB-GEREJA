@@ -7,40 +7,38 @@
         <div class="flex items-center justify-between h-[68px]">
 
             {{-- ===== LOGO ===== --}}
-<a href="{{ route('home') }}" class="flex items-center gap-3 group shrink-0">
-    <div class="relative flex items-center justify-center w-9 h-9">
-        <div class="absolute inset-0 bg-primary rounded-xl rotate-6 opacity-20 group-hover:rotate-12 transition-transform duration-300"></div>
-        <div class="relative bg-primary/10 rounded-xl w-full h-full flex items-center justify-center overflow-hidden">
-            <img src="{{ asset('images/logoupdate.png') }}" alt="Logo" class="w-7 h-7 object-contain">
-        </div>
-    </div>
-    <div class="flex flex-col leading-none">
-        <span class="text-[15px] font-black tracking-tight text-gray-900">Jemaat Masohi</span>
-        <span class="text-[10px] text-gray-400 font-medium tracking-wider uppercase">Sistem Informasi</span>
-    </div>
-</a>
+            <a href="{{ route('home') }}" class="flex items-center gap-3 group shrink-0">
+                <div class="relative flex items-center justify-center w-9 h-9">
+                    <div class="absolute inset-0 bg-primary rounded-xl rotate-6 opacity-20 group-hover:rotate-12 transition-transform duration-300"></div>
+                    <div class="relative bg-primary/10 rounded-xl w-full h-full flex items-center justify-center overflow-hidden">
+                        <img src="{{ asset('images/logoupdate.png') }}" alt="Logo" class="w-7 h-7 object-contain">
+                    </div>
+                </div>
+                <div class="flex flex-col leading-none">
+                    <span class="text-[15px] font-black tracking-tight text-gray-900">Jemaat Masohi</span>
+                    <span class="text-[10px] text-gray-400 font-medium tracking-wider uppercase">Sistem Informasi</span>
+                </div>
+            </a>
 
             {{-- ===== DESKTOP MENU ===== --}}
             <nav class="hidden lg:flex items-center gap-1">
-            @php
-    $navItems = [
-        ['route' => 'home',             'label' => 'Beranda',       'icon' => 'home',             'match' => 'home'],
-        ['route' => 'jadwal.index',     'label' => 'Jadwal',        'icon' => 'calendar_month',   'match' => 'jadwal.*'],
-        ['route' => 'berita.index',     'label' => 'Berita',        'icon' => 'newspaper',        'match' => 'berita.*'],
-        ['route' => 'galeri.index',     'label' => 'Galeri',        'icon' => 'photo_library',    'match' => 'galeri.*'],
-        ['route' => 'pendaftaran.index','label' => 'Pendaftaran',   'icon' => 'app_registration', 'match' => 'pendaftaran.*'],
-        ['route' => 'keuangan.index',   'label' => 'Keuangan',      'icon' => 'account_balance',  'match' => 'keuangan.*'],
-        ['route' => 'saran.create',     'label' => 'Kotak Saran',   'icon' => 'mail',             'match' => 'saran.*'],
-    ];
-@endphp
+                @php
+                    $navItems = [
+                        ['route' => 'home',             'label' => 'Beranda',       'icon' => 'home',             'match' => 'home'],
+                        ['route' => 'jadwal.index',     'label' => 'Jadwal',        'icon' => 'calendar_month',   'match' => 'jadwal.*'],
+                        ['route' => 'berita.index',     'label' => 'Berita',        'icon' => 'newspaper',        'match' => 'berita.*'],
+                        ['route' => 'galeri.index',     'label' => 'Galeri',        'icon' => 'photo_library',    'match' => 'galeri.*'],
+                        ['route' => 'pendaftaran.index','label' => 'Pendaftaran',   'icon' => 'app_registration', 'match' => 'pendaftaran.*'],
+                        ['route' => 'keuangan.index',   'label' => 'Keuangan',      'icon' => 'account_balance',  'match' => 'keuangan.*'],
+                        ['route' => 'saran.create',     'label' => 'Kotak Saran',   'icon' => 'mail',             'match' => 'saran.*'],
+                    ];
+                @endphp
 
                 @foreach($navItems as $item)
                 @php $active = request()->routeIs($item['match']); @endphp
                 <a href="{{ route($item['route']) }}"
                    class="relative flex items-center gap-1.5 px-3 py-2 rounded-lg text-[13.5px] font-medium transition-all duration-200 group
-                          {{ $active
-                             ? 'text-primary bg-primary/8'
-                             : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }}">
+                          {{ $active ? 'text-primary bg-primary/8' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }}">
                     <span class="material-symbols-outlined text-[18px] transition-transform duration-200 group-hover:scale-110"
                           style="font-variation-settings:'FILL' {{ $active ? '1' : '0' }}">
                         {{ $item['icon'] }}
@@ -61,9 +59,19 @@
                    class="flex items-center gap-2.5 pl-2 pr-4 py-2 rounded-xl text-sm font-semibold text-gray-700
                           hover:bg-gray-50 border border-transparent hover:border-gray-200
                           transition-all duration-200 group">
-                    <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-white text-xs font-black shrink-0">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                    </div>
+                    {{-- ✅ AVATAR dengan Foto atau Inisial --}}
+                    @if(Auth::user()->avatar)
+                        <img 
+                            src="{{ asset('storage/' . Auth::user()->avatar) }}" 
+                            alt="{{ Auth::user()->name }}"
+                            class="w-7 h-7 rounded-lg object-cover shrink-0 ring-2 ring-white shadow-sm"
+                        />
+                    @else
+                        <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-white text-xs font-black shrink-0 shadow-sm">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        </div>
+                    @endif
+                    
                     <div class="flex flex-col leading-none">
                         <span class="text-[12px] text-gray-400 font-normal">Halo,</span>
                         <span class="text-[13px] text-gray-800 font-semibold">{{ Str::limit(Auth::user()->name, 14) }}</span>
@@ -123,9 +131,19 @@
         <div class="px-4 pb-4 pt-2 border-t border-gray-100 flex items-center justify-between gap-3">
             <a href="{{ route('profile') }}"
                class="flex items-center gap-3 flex-1 px-4 py-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors">
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-white text-sm font-black">
-                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                </div>
+                {{-- ✅ AVATAR Mobile dengan Foto atau Inisial --}}
+                @if(Auth::user()->avatar)
+                    <img 
+                        src="{{ asset('storage/' . Auth::user()->avatar) }}" 
+                        alt="{{ Auth::user()->name }}"
+                        class="w-8 h-8 rounded-lg object-cover ring-2 ring-white shadow-sm"
+                    />
+                @else
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-white text-sm font-black shadow-sm">
+                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                    </div>
+                @endif
+                
                 <div>
                     <p class="text-[11px] text-gray-400">Login sebagai</p>
                     <p class="text-sm font-bold text-gray-800">{{ Auth::user()->name }}</p>

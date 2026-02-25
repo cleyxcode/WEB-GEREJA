@@ -21,6 +21,7 @@ class User extends Authenticatable implements FilamentUser
         'role',
         'no_hp',
         'alamat',
+        'avatar',  
     ];
 
     protected $hidden = [
@@ -36,13 +37,19 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-    // ✅ Hanya admin yang bisa akses Filament
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->role === 'admin';
     }
 
-    // ===== RELATIONSHIPS =====
+    
+    public function getAvatarUrlAttribute()
+    {
+        if ($this->avatar) {
+            return asset('storage/' . $this->avatar);
+        }
+        return null;
+    }
 
     public function pendaftaran(): HasMany
     {
@@ -55,7 +62,7 @@ class User extends Authenticatable implements FilamentUser
     }
     
     public function sendPasswordResetNotification($token): void
-{
-    $this->notify(new ResetPasswordNotification($token));
-}
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
 }

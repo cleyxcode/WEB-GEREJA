@@ -84,10 +84,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/saran', [SaranController::class, 'index'])->name('saran.create');
     Route::post('/saran', [SaranController::class, 'store'])->name('saran.store');
 
-    // Profile
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+// Profile
+Route::get('/profile',              [ProfileController::class, 'index'])->name('profile');
+Route::put('/profile',              [ProfileController::class, 'update'])->name('profile.update');
+Route::post('/profile/avatar',      [ProfileController::class, 'updateAvatar'])->name('profile.update-avatar');
+Route::put('/profile/password',     [ProfileController::class, 'updatePassword'])->name('profile.update-password');
 
     // Galeri
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
