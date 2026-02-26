@@ -17,7 +17,7 @@ class AuthController extends Controller
     public function showLogin()
     {
         if (Auth::check()) {
-            // ✅ FIX: Redirect berdasarkan role
+            
             return Auth::user()->role === 'admin'
                 ? redirect('/admin')
                 : redirect()->route('home');
@@ -57,7 +57,7 @@ class AuthController extends Controller
 
             $user = Auth::user();
 
-            // ✅ Admin → Filament Panel
+            
             if ($user->role === 'admin') {
                 return response()->json([
                     'success'  => true,
@@ -66,7 +66,7 @@ class AuthController extends Controller
                 ]);
             }
 
-            // ✅ Jemaat → Frontend
+           
             return response()->json([
                 'success'  => true,
                 'message'  => 'Login berhasil! Selamat datang, ' . $user->name,
@@ -86,7 +86,7 @@ class AuthController extends Controller
     public function showRegister()
     {
         if (Auth::check()) {
-            // ✅ FIX: Redirect berdasarkan role
+            
             return Auth::user()->role === 'admin'
                 ? redirect('/admin')
                 : redirect()->route('home');
@@ -129,7 +129,7 @@ class AuthController extends Controller
                 'name'     => $request->name,
                 'email'    => $request->email,
                 'password' => Hash::make($request->password),
-                'role'     => 'jemaat', // ✅ Register selalu jemaat
+                'role'     => 'jemaat', 
                 'no_hp'    => $request->no_hp,
                 'alamat'   => $request->alamat,
             ]);
